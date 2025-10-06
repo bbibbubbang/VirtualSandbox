@@ -1,0 +1,15 @@
+*.jar -diff
+*.png -diff
+*.jpg -diff
+*.jpeg -diff
+*.gif -diff
+*.pdf -diff
+*.zip -diff
+*.rar -diff
+*.7z -diff
+*.mp4 -diff
+*.mov -diff
+*.psd -diff
+*.ai -diff
+*.exe -diff
+*.apk -diff

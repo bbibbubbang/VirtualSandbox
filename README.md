@@ -1,6 +1,6 @@
 # VirtualSandbox
 
-VirtualSandbox는 Android 15(바닐라 아이스크림) 이상에서 실행되는 가상 샌드박스 환경 앱 예제 프로젝트입니다. 앱 내에서 격리된 공간을 만들고, 가상의 앱을 설치하거나 실행하는 흐름을 통해 Android Virtualization Framework을 활용한 보안/격리 시나리오를 설계할 수 있습니다.
+VirtualSandbox는 Android 5.0 (API 21) 이상에서 실행되며, Android 15(바닐라 아이스크림) 이상에서 제공되는 Android Virtualization Framework과 연동할 수 있는 가상 샌드박스 환경 앱 예제 프로젝트입니다. 앱 내에서 격리된 공간을 만들고, 가상의 앱을 설치하거나 실행하는 흐름을 통해 최신 보안/격리 시나리오를 설계할 수 있습니다.
 
 ## 주요 기능
 
@@ -26,7 +26,7 @@ VirtualSandbox/
 
 - Android Studio Iguana 이상 권장
 - Android Gradle Plugin 8.5.0, Kotlin 1.9.24, Compose BOM 2024.05.00
-- 최소 SDK 26, 타깃 SDK 35
+- 최소 SDK 21, 타깃 SDK 35
 
 ## 빌드 방법
 
@@ -45,5 +45,6 @@ VirtualSandbox/
 ## 참고
 
 - 실제 가상화 실행은 Android 15 (Vanilla Ice Cream) 이상의 기기에서 `PackageManager.FEATURE_VIRTUALIZATION_FRAMEWORK`를 지원해야 동작합니다.
+- Android 5.x ~ 14.x 기기에서는 가상화 실행 기능이 비활성화되며, 공간 및 앱 관리 흐름만 체험할 수 있습니다.
 - 예제에서는 Room, DataStore 등을 활용하여 기본적인 데이터 흐름을 구성했으며, 필요에 따라 실 서비스에 맞게 확장하세요.
 - 저장소 정책상 `gradle/wrapper/gradle-wrapper.jar`는 포함하지 않으며, `scripts/bootstrap_gradle_wrapper.sh` 스크립트가 동일한 버전을 자동으로 내려받습니다.

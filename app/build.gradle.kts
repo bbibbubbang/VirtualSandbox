@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.virtualsandbox.app"
-        minSdk = 26
+        minSdk = 21
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -74,7 +74,6 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     testImplementation("junit:junit:4.13.2")

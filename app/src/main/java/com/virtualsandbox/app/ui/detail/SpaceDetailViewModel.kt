@@ -63,6 +63,7 @@ class SpaceDetailViewModel @Inject constructor(
                         it.copy(
                             space = space,
                             virtualizationSupported = controller.isVirtualizationSupported(),
+                            launchSupported = controller.hasLaunchCapability(),
                             storageUsage = fileManager.calculateDirectorySize(space.storageRoot),
                         )
                     }
@@ -165,7 +166,7 @@ class SpaceDetailViewModel @Inject constructor(
                 updateSandboxSpaceUseCase(space.copy(lastLaunchedAt = System.currentTimeMillis()))
             }
         } else {
-            _state.update { it.copy(errorMessage = context.getString(com.virtualsandbox.app.R.string.space_detail_virtualization_not_supported)) }
+            _state.update { it.copy(errorMessage = context.getString(com.virtualsandbox.app.R.string.space_detail_launch_failed)) }
         }
     }
 
@@ -178,6 +179,7 @@ data class SpaceDetailUiState(
     val space: SandboxSpace? = null,
     val availableApps: List<InstalledAppInfo> = emptyList(),
     val virtualizationSupported: Boolean = false,
+    val launchSupported: Boolean = true,
     val storageUsage: Long = 0,
     val errorMessage: String? = null,
 )

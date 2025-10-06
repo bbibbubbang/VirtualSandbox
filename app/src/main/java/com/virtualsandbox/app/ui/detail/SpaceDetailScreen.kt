@@ -82,6 +82,7 @@ fun SpaceDetailRoute(
         showAddAppDialog = showAddAppDialog,
         showDeleteDialog = showDeleteDialog,
         onAddApp = viewModel::addVirtualApp,
+        launchEnabled = state.value.launchSupported,
     )
 }
 
@@ -99,6 +100,7 @@ fun SpaceDetailScreen(
     showAddAppDialog: MutableState<Boolean>,
     showDeleteDialog: MutableState<Boolean>,
     onAddApp: (InstalledAppInfo) -> Unit,
+    launchEnabled: Boolean,
 ) {
     val space = state.space
     Scaffold(
@@ -144,6 +146,7 @@ fun SpaceDetailScreen(
                     AppsSection(
                         space = space,
                         virtualizationSupported = state.virtualizationSupported,
+                        launchEnabled = launchEnabled,
                         onLaunchApp = onLaunchApp,
                         onRemoveApp = onRemoveApp,
                         onAddAppClick = onAddAppClick,
@@ -246,6 +249,7 @@ private fun ProfileSection(space: SandboxSpace, onProfileSelected: (SandboxProfi
 private fun AppsSection(
     space: SandboxSpace,
     virtualizationSupported: Boolean,
+    launchEnabled: Boolean,
     onLaunchApp: (Long) -> Unit,
     onRemoveApp: (Long) -> Unit,
     onAddAppClick: () -> Unit,
@@ -271,7 +275,7 @@ private fun AppsSection(
                         packageName = app.packageName,
                         onLaunch = { onLaunchApp(app.id) },
                         onRemove = { onRemoveApp(app.id) },
-                        enabled = virtualizationSupported,
+                        enabled = launchEnabled,
                     )
                 }
             }

@@ -22,8 +22,11 @@ class VirtualEnvironmentController @Inject constructor(
 ) {
 
     fun isVirtualizationSupported(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM &&
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             context.packageManager.hasSystemFeature(PackageManager.FEATURE_VIRTUALIZATION_FRAMEWORK)
+        } else {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+        }
     }
 
     fun hasLaunchCapability(): Boolean {

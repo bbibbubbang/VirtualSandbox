@@ -8,7 +8,7 @@
     <string name="spaces_empty_title">샌드박스를 만들어보세요</string>
     <string name="spaces_empty_body">가상 환경을 생성하여 앱과 데이터를 격리할 수 있습니다.</string>
     <string name="spaces_create_button">새 샌드박스</string>
-    <string name="spaces_virtualization_not_supported">이 기기는 안드로이드 15 이상의 가상화 프레임워크를 지원하지 않아 앱은 기본 환경에서 실행됩니다.</string>
+    <string name="spaces_virtualization_not_supported">이 기기는 필요한 가상화 기능을 지원하지 않아 앱은 기본 환경에서 실행됩니다.</string>
     <string name="spaces_virtualization_disabled">가상화 기능이 비활성화되어 있습니다. 설정에서 켜주세요.</string>
     <string name="space_detail_storage">저장소 사용량</string>
     <string name="space_detail_launch">가상 앱 실행</string>
@@ -25,7 +25,7 @@
     <string name="space_card_created_at">생성일 %1$s</string>
     <string name="settings_title">가상 환경 설정</string>
     <string name="settings_virtualization_title">가상화 엔진</string>
-    <string name="settings_virtualization_summary">Android Virtualization Framework 사용</string>
+    <string name="settings_virtualization_summary">지원되는 경우 Android Virtualization Framework 사용</string>
     <string name="settings_biometric_unlock_title">생체 인증 보호</string>
     <string name="settings_biometric_unlock_summary">샌드박스 실행 전 생체 인증을 요구합니다.</string>
     <string name="settings_network_default_title">기본 네트워크 차단</string>

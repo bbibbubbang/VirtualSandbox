@@ -26,6 +26,10 @@ class VirtualEnvironmentController @Inject constructor(
             context.packageManager.hasSystemFeature(PackageManager.FEATURE_VIRTUALIZATION_FRAMEWORK)
     }
 
+    fun hasLaunchCapability(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+    }
+
     fun canCloneApp(packageName: String): Boolean {
         return try {
             context.packageManager.getPackageInfo(packageName, 0)
@@ -45,25 +49,43 @@ class VirtualEnvironmentController @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     fun buildVirtualLaunchIntent(space: SandboxSpace, app: VirtualApp): Intent {
-        val intent = context.packageManager.getLaunchIntentForPackage(app.packageName)
+        return buildBaseLaunchIntent(app).apply {
+            putExtra("virtual_sandbox_space_id", space.id)
+            putExtra("virtual_sandbox_profile", space.profile.name)
+        }
+    }
+
+    private fun buildBaseLaunchIntent(app: VirtualApp): Intent {
+        return context.packageManager.getLaunchIntentForPackage(app.packageName)
+            ?.apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
             ?: throw ActivityNotFoundException("앱을 실행할 수 없습니다: ${app.packageName}")
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("virtual_sandbox_space_id", space.id)
-        intent.putExtra("virtual_sandbox_profile", space.profile.name)
-        return intent
     }
 
     fun launchVirtualApp(space: SandboxSpace, app: VirtualApp): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            try {
-                val intent = buildVirtualLaunchIntent(space, app)
-                val options = ActivityOptions.makeBasic()
-                ContextCompat.startActivity(context, intent, options.toBundle())
-                true
-            } catch (_: Exception) {
-                false
+        val intent = try {
+            if (isVirtualizationSupported()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    buildVirtualLaunchIntent(space, app)
+                } else {
+                    buildBaseLaunchIntent(app)
+                }
+            } else {
+                buildBaseLaunchIntent(app)
             }
+        } catch (_: Exception) {
+            return false
+        }
+
+        val options = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM && isVirtualizationSupported()) {
+            ActivityOptions.makeBasic().toBundle()
         } else {
+            null
+        }
+
+        return try {
+            ContextCompat.startActivity(context, intent, options)
+            true
+        } catch (_: Exception) {
             false
         }
     }
